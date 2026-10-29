@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#172b4d">
+    <title>Lembrei | Central de lembretes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="#inicio" aria-label="Lembrei - início">
+                <span class="brand-mark">L</span>
+                <span>lembrei<span class="brand-dot">.</span></span>
+            </a>
+            <div class="sidebar-caption">ESPAÇO DE TRABALHO</div>
+            <a class="nav-link active" href="#inicio"><span class="nav-icon">▦</span> Visão geral</a>
+            <div class="sidebar-note">
+                <span class="note-icon">✦</span>
+                <strong>Um passo de cada vez.</strong>
+                <p>Organize suas tarefas e deixe as ideias no lugar certo.</p>
+            </div>
+            <div class="sidebar-footer"><span class="online-dot"></span> API de lembretes</div>
+        </aside>
+
+        <main class="main-content" id="inicio">
+            <header class="topbar">
+                <div><span class="eyebrow">PAINEL DE ORGANIZAÇÃO</span><h1>Seus lembretes</h1><p class="page-subtitle">Tudo o que você precisa lembrar, em um só lugar.</p></div>
+                <div class="top-actions">
+                    <button id="btnImprimir" class="btn btn-outline" type="button"><span>↧</span> Exportar PDF</button>
+                    <button id="btnNovo" class="btn btn-primary" type="button"><span>＋</span> Novo lembrete</button>
+                </div>
+            </header>
+
+            <section id="formulario" class="panel editor hidden" aria-live="polite">
+                <div class="panel-heading"><div><span class="eyebrow">SEU ESPAÇO</span><h2 id="tituloFormulario">Criar lembrete</h2></div><span class="editor-symbol">✎</span></div>
+                <form id="formLembrete">
+                    <input type="hidden" id="lembreteId">
+                    <div class="form-group"><label for="descricao">O que você precisa lembrar?</label><input type="text" id="descricao" placeholder="Ex.: Entregar o trabalho de programação" maxlength="500" required><small>Use uma descrição clara. Máximo de 500 caracteres.</small></div>
+                    <div class="form-actions"><button type="button" id="btnCancelar" class="btn btn-quiet">Cancelar</button><button type="submit" class="btn btn-primary">Salvar lembrete <span>→</span></button></div>
+                </form>
+            </section>
+
+            <section class="summary-row">
+                <div class="summary-card"><div class="summary-icon purple">▤</div><div><span class="summary-label">REGISTROS ENCONTRADOS</span><strong id="totalRegistros">0</strong><small>De acordo com os filtros</small></div></div>
+                <div class="summary-card summary-tip"><div class="summary-icon yellow">✦</div><div><span class="summary-label">DICA RÁPIDA</span><strong>Organize suas ideias</strong><small>Use os filtros para encontrar um lembrete.</small></div></div>
+            </section>
+
+            <section class="panel filters-panel">
+                <div class="section-heading"><div><span class="eyebrow">PESQUISA AVANÇADA</span><h2>Filtrar lembretes</h2></div><button type="button" id="btnLimparFiltros" class="text-button">Limpar filtros ↗</button></div>
+                <div class="filters-grid">
+                    <div class="form-group description-filter"><label for="filtroDescricao">Descrição</label><div class="input-with-icon"><span>⌕</span><input type="search" id="filtroDescricao" placeholder="Buscar por palavra-chave..."></div></div>
+                    <div class="form-group"><label for="cadastroInicial">Cadastro a partir de</label><input type="date" id="cadastroInicial"></div>
+                    <div class="form-group"><label for="cadastroFinal">Cadastro até</label><input type="date" id="cadastroFinal"></div>
+                    <div class="form-group"><label for="atualizacaoInicial">Atualização a partir de</label><input type="date" id="atualizacaoInicial"></div>
+                    <div class="form-group"><label for="atualizacaoFinal">Atualização até</label><input type="date" id="atualizacaoFinal"></div>
+                </div>
+                <div class="filter-bottom"><span class="filter-hint">Os campos de data são opcionais.</span><button id="btnFiltrar" class="btn btn-dark" type="button">Aplicar filtros <span>→</span></button></div>
+            </section>
+
+            <section class="panel list-panel">
+                <div class="section-heading list-heading"><div><span class="eyebrow">ACOMPANHAMENTO</span><h2>Lista de lembretes</h2></div><label class="page-size-label" for="tamanhoPagina">Exibir <select id="tamanhoPagina"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option></select> por página</label></div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr>
+                            <th><button class="sort-button" data-order="Descricao" type="button">DESCRIÇÃO <span class="sort-indicator">↕</span></button></th>
+                            <th><button class="sort-button" data-order="DataCadastro" type="button">CADASTRO <span class="sort-indicator">↕</span></button></th>
+                            <th><button class="sort-button" data-order="DataAtualizacao" type="button">ATUALIZAÇÃO <span class="sort-indicator">↕</span></button></th>
+                            <th>STATUS</th><th class="actions-heading">AÇÕES</th>
+                        </tr></thead>
+                        <tbody id="listaLembretes"></tbody>
+                    </table>
+                    <div id="mensagemVazia" class="empty-state hidden"><span class="empty-icon">⌕</span><strong>Nenhum lembrete por aqui</strong><p>Tente alterar os filtros ou cadastre um novo lembrete.</p><button id="btnEmptyNovo" class="btn btn-primary" type="button">Criar lembrete</button></div>
+                    <div id="carregando" class="loading-state hidden">Carregando seus lembretes...</div>
+                </div>
+                <footer class="pagination"><span id="resumoPaginacao">Mostrando 0 registros</span><div class="pagination-controls"><button id="btnAnterior" class="page-button" type="button" aria-label="Página anterior">←</button><span id="paginaAtual">Página 1</span><button id="btnProximo" class="page-button" type="button" aria-label="Próxima página">→</button></div></footer>
+            </section>
+            <footer class="app-footer">LEMBREI <span>•</span> ORGANIZAÇÃO SIMPLES, ROTINA MAIS LEVE</footer>
+        </main>
+    </div>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+ATIVIDADE - SISTEMA DE LEMBRETES
+
+ESTRUTURA
+- front: interface HTML, CSS e JavaScript.
+- api: Minimal API em ASP.NET Core.
+
+CONFIGURAR O BANCO
+Confira os dados de conexão no arquivo api/umfg.programacaoiii.minimalapi.2026/appsettings.Development.json.
+A configuração original utiliza MySQL em localhost:3306, banco umfg_lembrete_develop, usuário root e senha root. Ajuste conforme seu MySQL.
+
+EXECUTAR A API
+1. Abra a solução api/umfg.programacaoiii.minimalapi.2026.sln no Visual Studio.
+2. Confira a conexão com o MySQL.
+3. Execute usando o perfil HTTPS.
+4. O front-end está configurado para https://localhost:7063.
+
+EXECUTAR O FRONT-END
+Abra a pasta front no VS Code e execute o arquivo index.html por um servidor local, como Live Server. Também é possível usar outro servidor HTTP local.
+
+FUNCIONALIDADES
+- Cadastro, consulta, edição e exclusão de lembretes.
+- Filtros por descrição e datas de cadastro e atualização.
+- Paginação e ordenação pela descrição, cadastro e atualização.
+- Impressão em PDF.
+- Mensagens de validação, sucesso e erro.
+
+Antes da entrega, teste a aplicação no seu computador, pois a execução depende do MySQL, do certificado HTTPS de desenvolvimento e do ambiente .NET instalado.
